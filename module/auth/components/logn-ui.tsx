@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
 import { signIn } from "@/lib/auth-client";
-import { GithubIcon } from "lucide-react";
+import { Github } from "lucide-react";
 import { useState } from "react";
 
 const LoginUI = () => {
@@ -26,10 +25,9 @@ const LoginUI = () => {
         <div className="max-w-lg">
           {/*Logo*/}
           <div className="mb-16">
-            <div className="inline-flex items-center gap-2 text-2xl font-bold">
-              <div className="w-8 h-8 bg-primary rounded-full">
+            <div className="inline-flex items-center gap-2 text-2xl font-bold mb-12">
+              <div className="w-8 h-8 bg-primary rounded-full " />
                 <span>CodeHorse</span>
-              </div>
             </div>
             {/* Main Content*/}
             <h1 className="text-5xl font-bold mb-6 leading-tight text-balance">
@@ -59,7 +57,7 @@ const LoginUI = () => {
             disabled={isLoading}
             className="w-full py-3 px-4 bg-primary text-black rounded-lg font-semibold hover:bg-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-3 mb-8"
           >
-            <GithubIcon size={20} />
+            <Github size={20} />
             {isLoading ? "Signing in..." : "Github"}
           </button>
           {/* Footer Links*/}

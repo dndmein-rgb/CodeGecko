@@ -12,7 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "@typescript-eslint/no-explicit-any"
+    'eslint-disable @typescript-eslint/no-explicit-any'
 
   ]),
 ]);

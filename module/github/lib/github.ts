@@ -45,6 +45,7 @@ export async function fetchUserContribution(token:string,username:string){
                 }
             }
         }
+    }
     `
     // interface contributiondata{
     //     user:{

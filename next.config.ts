@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: {},
-  cacheComponents:true
+  
+    turbopack: {},
+  
 };
 
 export default nextConfig;

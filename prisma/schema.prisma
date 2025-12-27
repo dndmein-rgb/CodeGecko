@@ -51,6 +51,13 @@ model Repository{
   @@map("repository")
 }
 
+enum ReviewStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
 model Review{
   id String @id @default(cuid())
   repositoryId String
@@ -59,14 +66,14 @@ model Review{
   prTitle String
   prUrl String
   review String @db.Text
-  status String @default("completed")
+  status ReviewStatus @default(COMPLETED)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([repositoryId, prNumber])
   @@index([repositoryId])
   @@map("review")
 }
-
 model Session {
   id        String   @id
   expiresAt DateTime

@@ -70,7 +70,6 @@ export async function reviewPullRequest(
            }
 
         } catch (dberror) {
-            console.error("failed to save error in database:",error)
-        }
-    }
-}
+            console.error("failed to save error in database:",dberror)        }
+        return {success: false, message: error instanceof Error ? error.message : "Unknown Error"}
+    }}

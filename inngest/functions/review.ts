@@ -18,9 +18,9 @@ export const generateReview = inngest.createFunction(
         where: {
           userId: userId,
           providerId: "github"
-        }
+        },
+        orderBy: { createdAt: 'asc' }
       })
-
       if (!account?.accessToken) {
         throw new Error("No GitHub access token found");
       }
@@ -96,6 +96,8 @@ Format your response in markdown.`;
         });
       }
     })
-return {success:true}
-  }
+return { 
+  success: true, 
+  reviewPosted: true,
+}  }
 )

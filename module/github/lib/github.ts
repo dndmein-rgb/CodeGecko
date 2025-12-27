@@ -227,14 +227,14 @@ export async function postReviewComment(
   owner: string,
   repo: string,
   prNumber: number,
-  review:string
-) {
-  const octokit=new Octokit({auth:token})
+  review: string
+): Promise<void> {
+  const octokit = new Octokit({ auth: token });
 
   await octokit.rest.issues.createComment({
     owner,
     repo,
-    issue_number:prNumber,
-    body:`## 🤖 AI Code Review \n\n${review}\n\n---\n*Powered by Coderabbit`
-  })
+    issue_number: prNumber,
+    body: `## 🤖 AI Code Review \n\n${review}\n\n---\n*Powered by CodeRabbit*`,
+  });
 }

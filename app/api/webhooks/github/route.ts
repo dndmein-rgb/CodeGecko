@@ -23,15 +23,14 @@ export async function POST(req:NextRequest){
 
             const [owner,repoName]=repo.split("/")
 
-            if(action==="opened" || action==="synchronized"){
+            if(action==="opened" || action==="synchronize"){
                 reviewPullRequest(owner,repoName,prNumber)
                 .then(()=>console.log(`Review completed for ${repo} #${prNumber}`))
                 .catch((error)=>console.log(`Review failed for ${repo} #${prNumber}:`,error))
             }
         }
 
-        return NextResponse.json({message:"Event Processes"},{status:200})
-    }catch(error){
+        return NextResponse.json({message:"Event Processed"},{status:200})    }catch(error){
         console.error("Error processing webhook:",error);
      return NextResponse.json({message:"Internal Server Error"},{status:500})
 

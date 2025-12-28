@@ -3,7 +3,7 @@
 import { inngest } from "@/inngest/client";
 import prisma from "@/lib/db"
 import { getPullRequestDiff } from "@/module/github/lib/github";
-
+import { canCreateReview,incrementReviewCount } from "@/module/payment/lib/subscription";
 export async function reviewPullRequest(
     owner:string,
     repo:string,
@@ -31,6 +31,10 @@ export async function reviewPullRequest(
     if(!repository){
         throw new Error(`Repository ${owner}/${repo} not found in database.Please connect the repository.`)
     }
+    const canReview=await canCreateReview(repository.userId,repository.id)
+    if(!canReview){
+        throw new Error(`Repository ${owner}/${repo} not found in database.Please reconnect the repository.`)
+    }
 
     const githubAccount=repository.user.accounts[0];
     if(!githubAccount?.accessToken){
@@ -48,6 +52,7 @@ export async function reviewPullRequest(
             userId:repository.user.id
         }
     })
+    await incrementReviewCount(repository.user.id,repository.id)
     return {success:true,message:"Review Queued"}
     } catch (error) {
         try {
@@ -64,7 +69,7 @@ export async function reviewPullRequest(
                     prTitle:"Failed to fetch PR",
                     prUrl:`https://github.com/${owner}/${repo}/pull/${prNumber}`,
                     review:`Error :${error instanceof Error?error.message:"Unknown Error"}`,
-                    status:"failed"
+                    status:"FAILED"
                 }
             })
            }

@@ -4,6 +4,7 @@ import {auth} from '@/lib/auth'
 import {headers} from 'next/headers'
 import {getRepositories,createWebhook} from '@/module/github/lib/github'
 import { inngest } from '@/inngest/client'
+import { canConnectRepository,incrementRepositoryCount,decrementRepositoryCount } from '@/module/payment/lib/subscription'
 export const fetchRepositories=async(page:number=1,perPage:number=10)=>{
     const session=await auth.api.getSession({
         headers:await headers()
@@ -32,6 +33,10 @@ export const connectRepository=async(owner:string,repo:string,githubId:number)=>
         throw new Error("Unauthorized");
     }
     //TODO check if user is on free plan or not
+    const canConnect=await canConnectRepository(session.user.id)
+    if(!canConnect){
+        throw new Error("Repository limit reached. Please upgrade to pro for unlimited repositories.")
+    }
 
     const webhook=await createWebhook(owner,repo);
     if(webhook){
@@ -45,8 +50,9 @@ export const connectRepository=async(owner:string,repo:string,githubId:number)=>
                 userId:session.user.id
             }
         })
-    }
-    //TODO : Increment repo count for usage tracking
+    
+    // Increment repo count for usage tracking
+    await incrementRepositoryCount(session.user.id);
 
     //Trigger repository indexing for rag
     try {
@@ -61,6 +67,7 @@ export const connectRepository=async(owner:string,repo:string,githubId:number)=>
     } catch (error) {
         console.error("Error to trigger repository indexing :",error)
     }
+}
     return webhook;
 
 }   

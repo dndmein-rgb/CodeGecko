@@ -2,7 +2,7 @@
 
 import { inngest } from "@/inngest/client";
 import prisma from "@/lib/db"
-import { getPullRequestdiff } from "@/module/github/lib/github";
+import { getPullRequestDiff } from "@/module/github/lib/github";
 
 export async function reviewPullRequest(
     owner:string,
@@ -38,7 +38,7 @@ export async function reviewPullRequest(
     }
     const token =githubAccount.accessToken;
 
-    const {title}=await getPullRequestdiff(token,owner,repo,prNumber);
+    const {title}=await getPullRequestDiff(token,owner,repo,prNumber);
     await inngest.send({
         name:"pr.review.requested",
         data:{
@@ -62,7 +62,7 @@ export async function reviewPullRequest(
                     repositoryId:repository.id,
                     prNumber,
                     prTitle:"Failed to fetch PR",
-                    prUrl:`https://github.com/${owner}/${repo}/${prNumber}`,
+                    prUrl:`https://github.com/${owner}/${repo}/pull/${prNumber}`,
                     review:`Error :${error instanceof Error?error.message:"Unknown Error"}`,
                     status:"failed"
                 }

@@ -26,10 +26,10 @@ const MainPage = () => {
       <p className="text-muted-foreground">Overview of your coding activity and AI reviews</p>
       </div>
       <div className=" grid gap-4 md:grid-cols-4" >
-        <Card>
+        <Card className="hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:border-primary/50 cursor-default">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Repositories</CardTitle>
-          <GitBranch className="h-4 w-4 text-muted-foreground" /> 
+          <GitBranch className="h-4 w-4 text-primary" /> 
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{isLoading ? "...":(stats?.totalRepos||0).toLocaleString()}</div>
@@ -37,10 +37,10 @@ const MainPage = () => {
           </CardContent>
         </Card>
 
-         <Card>
+         <Card className="hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/50 cursor-default">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Commits</CardTitle>
-          <GitCommit className="h-4 w-4 text-muted-foreground" /> 
+          <GitCommit className="h-4 w-4 text-blue-500" /> 
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{isLoading ? "...":(stats?.totalCommits||0).toLocaleString()}</div>
@@ -48,10 +48,10 @@ const MainPage = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 hover:border-purple-500/50 cursor-default">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Pull Requests</CardTitle>
-          <GitPullRequest className="h-4 w-4 text-muted-foreground" /> 
+          <GitPullRequest className="h-4 w-4 text-purple-500" /> 
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{isLoading ? "...":(stats?.totalPrs||0).toLocaleString()}</div>
@@ -59,10 +59,10 @@ const MainPage = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 hover:border-green-500/50 cursor-default">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">All Reviews</CardTitle>
-          <MessageSquare className="h-4 w-4 text-muted-foreground" /> 
+          <MessageSquare className="h-4 w-4 text-green-500" /> 
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{isLoading ? "...":(stats?.totalReviews||0).toLocaleString()}</div>

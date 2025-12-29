@@ -62,7 +62,7 @@ const LoginUI = () => {
           </button>
           {/* Footer Links*/}
           <div className="space-y-4 text-center text-sm text-gray-400">
-            <div className="">New to CodeRabbit?{""}
+            <div className="">New to CodeGecko?{""}
               <a href="#" className='text-primary hover:text-primary-foreground font-semibold'>Sign Up</a>
             </div>
             <div className="">

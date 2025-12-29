@@ -235,6 +235,6 @@ export async function postReviewComment(
     owner,
     repo,
     issue_number: prNumber,
-    body: `## 🤖 AI Code Review \n\n${review}\n\n---\n*Powered by CodeRabbit*`,
+    body: `![CodeGecko](${process.env.NEXT_PUBLIC_APP_BASE_URL}/gecko.png)\n\n## 🤖 AI Code Review \n\n${review}\n\n---\n*Powered by CodeGecko*`,
   });
 }

@@ -60,8 +60,10 @@ export async function getDashBoardStats(){
 
         const {data:user}=await octokit.rest.users.getAuthenticated();
 
-        //TODO:Fetch total connected repo from DB
-        const totalRepos=30;
+        // Fetch total connected repos from DB
+        const totalRepos = await prisma.repository.count({
+            where: { userId: session.user.id }
+        });
 
         const calendar=await fetchUserContribution(token,user.login)
         const totalCommits=calendar?.totalContributions||0;
@@ -72,12 +74,20 @@ export async function getDashBoardStats(){
         })
         const totalPrs=prs.total_count;
 
-        //TODO :count ai reviews from DB
-        const totalReviews =44;
+        // Count AI reviews from DB
+        const totalReviews = await prisma.review.count({
+            where: {
+                repository: {
+                    userId: session.user.id
+                }
+            }
+        });
+
         return {
             totalCommits,totalRepos,totalPrs,totalReviews
         }
     }catch(error){
+        console.error("Error fetching dashboard stats:", error);
         return {
             totalCommits:0,totalRepos:0,totalPrs:0,totalReviews:0   
         }
@@ -124,27 +134,19 @@ export async function getMonthlyActivity(){
         const sixMonthsAgo = new Date();
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-
-        // TODO: REVIEWS'S REAL DATA
-        const generateSampleReviews = () => {
-            const sampleReviews = [];
-            const now = new Date();
-
-            // Generate random reviews over the past 6 months
-            for (let i = 0; i < 45; i++) {
-                const randomDaysAgo = Math.floor(Math.random() * 180); // Random day in last 6 months
-                const reviewDate = new Date(now);
-                reviewDate.setDate(reviewDate.getDate() - randomDaysAgo);
-
-                sampleReviews.push({
-                    createdAt: reviewDate,
-                });
+        const reviews = await prisma.review.findMany({
+            where: {
+                createdAt: {
+                    gte: sixMonthsAgo
+                },
+                repository: {
+                    userId: session.user.id
+                }
+            },
+            select: {
+                createdAt: true
             }
-
-            return sampleReviews;
-        };
-
-        const reviews = generateSampleReviews()
+        });
 
         reviews.forEach((review) => {
             const monthKey = monthNames[review.createdAt.getMonth()];

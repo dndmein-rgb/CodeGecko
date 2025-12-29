@@ -60,7 +60,11 @@ export const AppSidebar = () => {
   const user = session.user;
   const userName = user.name || "GUEST";
   const userEmail = user.email || "";
-  const userInitials = userName;
+  const userInitials = userName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase() || "U";
   const userAvatar =
     user.image ||
     ""

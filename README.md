@@ -31,7 +31,7 @@ SuperCharge your team to ship faster with the most Advanced AI code reviews.
 
 ## 🎯 Overview
 
-CodeGecko is an AI-powered code review platform that helps development teams ship faster by automating code reviews, identifying bugs, and suggesting improvements. Built with Next.js 15 and modern web technologies, CodeGecko provides intelligent, context-aware code analysis to streamline your development workflow.
+CodeGecko is an AI-powered code review platform that helps development teams ship faster by automating code reviews, identifying bugs, and suggesting improvements. Built with Next.js 16 and modern web technologies, CodeGecko provides intelligent, context-aware code analysis to streamline your development workflow.
 
 ---
 

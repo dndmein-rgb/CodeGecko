@@ -22,6 +22,7 @@ export const auth = betterAuth({
       scope: ["repo"],
     },
   },
+  trustedOrigins:["http://localhost:3000","https://nonextracted-intersticed-holly.ngrok-free.dev"],
   plugins: [
     polar({
       client: polarClient,
@@ -31,10 +32,10 @@ export const auth = betterAuth({
           products: [
             {
               productId: "3314baa1-44c2-44ac-9ccb-5725b6bbfa80",
-              slug: "codehorse", // Custom slug for easy reference in Checkout URL, e.g. /checkout/codehorse
+              slug: "pro", // Custom slug for easy reference in Checkout URL, e.g. /checkout/codehorse
             },
           ],
-          successUrl: process.env.POLAR_SUCCESS_URL,
+          successUrl: process.env.POLAR_SUCCESS_URL||"/dashboard/subscription?success=true",
           authenticatedUsersOnly: true,
         }),
         portal({

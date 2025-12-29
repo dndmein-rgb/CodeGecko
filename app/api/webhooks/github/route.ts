@@ -12,12 +12,16 @@ export async function POST(req:NextRequest){
 
         let body;
         try {
-            body = await req.json();
+            const reqBody = await req.text();
+            if (!reqBody) {
+                console.error("No request body received");
+                return NextResponse.json({message:"No request body received"},{status:400})
+            }
+            body = JSON.parse(reqBody);
         } catch (parseError) {
             console.error("Failed to parse JSON body:", parseError);
             return NextResponse.json({message:"Invalid JSON"},{status:400})
         }
-
         if(event==="pull_request"){
             const action=body.action
             const repo=body.repository?.full_name;

@@ -91,7 +91,7 @@ Format your response in markdown.`;
             prTitle: title,
             prUrl: `https://github.com/${owner}/${repo}/pull/${prNumber}`,
             review,
-            status: "completed",
+            status: "COMPLETED",
           },
         });
       }
